@@ -68,7 +68,7 @@ class BinarySearchTreeDict:
 
 if __name__ == "__main__":
 
-    import sys, time
+    import sys, time, resource as res
 
     if ( sys.argv[1] == "binarytree" ):
         data_structure = BinarySearchTreeDict()
@@ -103,8 +103,10 @@ if __name__ == "__main__":
     lookup_time = time.clock() - start
 
     for i in range(len(words)):
-        print '<{}> : {}'.format(words[i],
+        print '<{}>: {}'.format(words[i],
             "S" if results[i] else "N")
-    print "tempo_de_carga :", insertion_time
-    print "tempo_da_consulta :", lookup_time
-    print "consumo_de_memoria :", 0
+    print "tempo_de_carga:", insertion_time
+    print "tempo_da_consulta:", lookup_time
+    process = res.RUSAGE_SELF
+    memory_consumption = res.getrusage(process).ru_maxrss * res.getpagesize()
+    print "consumo_de_memoria:", memory_consumption

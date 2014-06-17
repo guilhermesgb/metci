@@ -81,7 +81,7 @@ if __name__ == "__main__":
     data_file = open(data_file, 'r')
 
     words = []
-    for word in data_file.xreadlines():
+    for word in data_file.readlines():
         words.append(word)
 
     start = time.clock()
@@ -93,7 +93,7 @@ if __name__ == "__main__":
     queries_file = open(queries_file, 'r')
 
     words = []
-    for word in queries_file.xreadlines():
+    for word in queries_file.readlines():
         words.append(word)
 
     results = []

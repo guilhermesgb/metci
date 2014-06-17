@@ -3,14 +3,14 @@ class ListDict:
     def __init__(self):
         self.storage = []
 
-    def insert(word):
+    def insert(self, word):
         word = word.lower()
         try:
             self.storage.index(word)
         except ValueError:
             self.storage.append(word)
 
-    def lookup(word):
+    def lookup(self, word):
         word = word.lower()
         try:
             self.storage.index(word)
@@ -23,11 +23,11 @@ class HashMapDict:
     def __init__(self):
         self.storage = {}
 
-    def insert(word):
+    def insert(self, word):
         word = word.lower()
         self.storage[word] = True
 
-    def lookup(word):
+    def lookup(self, word):
         word = word.lower()
         return True if self.storage.get(word, False) else False
 
@@ -42,47 +42,60 @@ class BinarySearchTreeDict:
     def __init__(self):
         self.storage = None
 
-    def insert(word):
-        _insert(word.lower())
+    def insert(self, word):
+        self._insert(word.lower(), self.storage)
 
-    def _insert(word, node=self.storage):
+    def _insert(self, word, node):
         if ( node == None ):
-            node = Node(None, word, None)
+            node = self.Node(None, word, None)
         elif ( word < node.word ):
-            self.insert(word, node=node.left)
+            self.insert(word, node.left)
         elif ( word > node.word ):
-            self.insert(word, node=node.right)
+            self.insert(word, node.right)
 
-    def lookup(word):
-        return _lookup(word.lower())
+    def lookup(self, word):
+        return self._lookup(word.lower(), self.storage)
 
-    def _lookup(word, node=self.storage):
+    def _lookup(self, word, node):
         if ( node == None ):
             return False
         elif ( word < node.word ):
-            return self.lookup(word, node=node.left)
+            return self.lookup(word, node.left)
         elif ( word > node.word ):
-            return self.lookup(word, node=node.right)
+            return self.lookup(word, node.right)
         else:
             return True
 
 if __name__ == "__main__":
 
-    import sys, time, resource as res
+    import sys, time, resource as res, os
 
-    if ( sys.argv[1] == "binarytree" ):
+    if ( len(sys.argv) != 4 ):
+        print ( "Format should be:\n\n" +
+            "$./execute.sh <data_structure> <data_file> <queries_file>" )
+        exit(1)
+
+    data_structure_key = sys.argv[1]
+    if ( data_structure_key == "binarytree" ):
         data_structure = BinarySearchTreeDict()
-    elif ( sys.argv[1] == "hashmap" ):
+    elif ( data_structure_key == "hashmap" ):
         data_structure = HashMapDict()
-    else:
+    elif ( data_structure_key == "list" ):
         data_structure = ListDict()
+    else:
+        print ( "Invalid data structure key " +
+            "{}, aborting.".format(data_structure_key) )
+        exit(1)
 
     data_file = sys.argv[2]
+    if ( not os.path.exists(data_file) ):
+        print "{} doesn't exist, aborting.".format(data_file)
+        exit(1)
     data_file = open(data_file, 'r')
 
     words = []
     for word in data_file.readlines():
-        words.append(word)
+        words.append(word.strip())
 
     start = time.clock()
     for word in words:
@@ -90,11 +103,14 @@ if __name__ == "__main__":
     insertion_time = time.clock() - start
 
     queries_file = sys.argv[3]
+    if ( not os.path.exists(queries_file) ):
+        print "{} doesn't exist, aborting.".format(queries_file)
+        exit(1)
     queries_file = open(queries_file, 'r')
 
     words = []
     for word in queries_file.readlines():
-        words.append(word)
+        words.append(word.strip())
 
     results = []
     start = time.clock()
@@ -105,8 +121,10 @@ if __name__ == "__main__":
     for i in range(len(words)):
         print '<{}>: {}'.format(words[i],
             "S" if results[i] else "N")
-    print "tempo_de_carga:", insertion_time
-    print "tempo_da_consulta:", lookup_time
+    print "tempo_de_carga: {} segundos".format(insertion_time)
+    print "tempo_da_consulta: {} segundos".format(lookup_time)
     process = res.RUSAGE_SELF
-    memory_consumption = res.getrusage(process).ru_maxrss * res.getpagesize()
-    print "consumo_de_memoria:", memory_consumption
+    memory_consumption = res.getrusage(process).ru_maxrss
+    memory_consumption *= res.getpagesize()
+    memory_consumption /= 1048576.0
+    print "consumo_de_memoria: {} MB".format(memory_consumption)

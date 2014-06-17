@@ -1,0 +1,2 @@
+#!/bin/sh
+python dictionary.py $1 $2 $3

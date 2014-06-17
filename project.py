@@ -65,3 +65,46 @@ class BinarySearchTreeDict:
             return self.lookup(word, node=node.right)
         else:
             return True
+
+if __name__ == "__main__":
+
+    import sys, time
+
+    if ( sys.argv[1] == "binarytree" ):
+        data_structure = BinarySearchTreeDict()
+    elif ( sys.argv[1] == "hashmap" ):
+        data_structure = HashMapDict()
+    else:
+        data_structure = ListDict()
+
+    data_file = sys.argv[2]
+    data_file = open(data_file, 'r')
+
+    words = []
+    for word in data_file.xreadlines():
+        words.append(word)
+
+    start = time.clock()
+    for word in words:
+        data_structure.insert(word)
+    insertion_time = time.clock() - start
+
+    queries_file = sys.argv[3]
+    queries_file = open(queries_file, 'r')
+
+    words = []
+    for word in queries_file.xreadlines():
+        words.append(word)
+
+    results = []
+    start = time.clock()
+    for word in words:
+        results.append(data_structure.lookup(word))
+    lookup_time = time.clock() - start
+
+    for i in range(len(words)):
+        print '<{}> : {}'.format(words[i],
+            "S" if results[i] else "N")
+    print "tempo_de_carga :", insertion_time
+    print "tempo_da_consulta :", lookup_time
+    print "consumo_de_memoria :", 0

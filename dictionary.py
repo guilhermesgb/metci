@@ -43,7 +43,6 @@ class BinarySearchTreeDict:
         self.storage = None
 
     def insert(self, word):
-        print "inserting: ", word
         self.storage = self._insert(word.lower(), self.storage)
 
     def _insert(self, word, node):

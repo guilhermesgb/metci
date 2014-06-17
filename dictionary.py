@@ -43,15 +43,20 @@ class BinarySearchTreeDict:
         self.storage = None
 
     def insert(self, word):
-        self._insert(word.lower(), self.storage)
+        print "inserting: ", word
+        self.storage = self._insert(word.lower(), self.storage)
 
     def _insert(self, word, node):
         if ( node == None ):
-            node = self.Node(None, word, None)
+            return self.Node(None, word, None)
         elif ( word < node.word ):
-            self.insert(word, node.left)
+            return self.Node(self._insert(word, node.left),
+                node.word, node.right)
         elif ( word > node.word ):
-            self.insert(word, node.right)
+            return self.Node(node.left,
+                node.word, self._insert(word, node.right))
+        else:
+            return self.Node(node.left, node.word, node.right)
 
     def lookup(self, word):
         return self._lookup(word.lower(), self.storage)
@@ -60,9 +65,9 @@ class BinarySearchTreeDict:
         if ( node == None ):
             return False
         elif ( word < node.word ):
-            return self.lookup(word, node.left)
+            return self._lookup(word, node.left)
         elif ( word > node.word ):
-            return self.lookup(word, node.right)
+            return self._lookup(word, node.right)
         else:
             return True
 

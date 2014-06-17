@@ -5,10 +5,7 @@ class ListDict:
 
     def insert(self, word):
         word = word.lower()
-        try:
-            self.storage.index(word)
-        except ValueError:
-            self.storage.append(word)
+        self.storage.append(word)
 
     def lookup(self, word):
         word = word.lower()
@@ -43,32 +40,46 @@ class BinarySearchTreeDict:
         self.storage = None
 
     def insert(self, word):
-        self.storage = self._insert(word.lower(), self.storage)
-
-    def _insert(self, word, node):
-        if ( node == None ):
-            return self.Node(None, word, None)
-        elif ( word < node.word ):
-            return self.Node(self._insert(word, node.left),
-                node.word, node.right)
-        elif ( word > node.word ):
-            return self.Node(node.left,
-                node.word, self._insert(word, node.right))
+        word = word.lower()
+        if ( self.storage == None ):
+            self.storage = self.Node(None, word, None)
         else:
-            return self.Node(node.left, node.word, node.right)
+            root = self.storage
+            while ( root != None ):
+                if ( word < root.word ):
+                    if ( root.left == None ):
+                        root.left = self.Node(None, word, None)
+                        break
+                    else:
+                        root = root.left
+                elif ( word > root.word ):
+                    if ( root.right == None ):
+                        root.right = self.Node(None, word, None)
+                        break
+                    else:
+                        root = root.right
+                else:
+                    break
 
     def lookup(self, word):
-        return self._lookup(word.lower(), self.storage)
-
-    def _lookup(self, word, node):
-        if ( node == None ):
+        word = word.lower()
+        if ( self.storage == None ):
             return False
-        elif ( word < node.word ):
-            return self._lookup(word, node.left)
-        elif ( word > node.word ):
-            return self._lookup(word, node.right)
         else:
-            return True
+            root = self.storage
+            while ( root != None ):
+                if ( word < root.word ):
+                    if ( root.left == None ):
+                        return False
+                    else:
+                        root = root.left
+                elif ( word > root.word ):
+                    if ( root.right == None ):
+                        return False
+                    else:
+                        root = root.right
+                else:
+                    return True
 
 if __name__ == "__main__":
 

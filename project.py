@@ -60,9 +60,9 @@ class BinarySearchTreeDict:
     def _lookup(word, node=self.storage):
         if ( node == None ):
             return False
-        elif ( word == node.word ):
-            return True
         elif ( word < node.word ):
             return self.lookup(word, node=node.left)
-        else:
+        elif ( word > node.word ):
             return self.lookup(word, node=node.right)
+        else:
+            return True

@@ -46,7 +46,6 @@ class BinarySearchTreeDict:
         _insert(word.lower())
 
     def _insert(word, node=self.storage):
-        word = word.lower()
         if ( node == None ):
             node = Node(None, word, None)
         elif ( word < node.word ):

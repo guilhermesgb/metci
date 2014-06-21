@@ -1,0 +1,62 @@
+INSTRUÇÕES DE EXECUÇÃO
+======================
+
+Este arquivo descreve tudo o que é necessário para a
+execução dos procedimentos a fim de realizar o experimento
+de forma fácil e com sucesso.
+
+As estruturas de dados escolhidas para a realização deste
+experimento, além da estrutura LISTA, foram HASHTABLE e
+BINARY TREE.
+
+
+1. INTRODUÇÃO
+=============
+
+Neste diretório contém todos os arquivos necessários para
+executar o experimento.
+
+Os arquivos contidos neste diretório são:
+   - dicionario
+      > Script Shell responsável por executar todo o conjunto
+        de testes.
+   - dictionary.py
+      > Arquivo python contendo todas as estruturas de dados
+        necessárias para a realização do experimento, como
+        também todas funcionalidades para a obtenção das
+        métricas desejadas
+   - dictionary.txt
+      > Dicionário contendo as palavras que serão utilizadas
+        no experimento 
+   - lookup.txt
+      > Arquivo contendo as palavras que serão utilizadas nas
+        consultas que serão feitas ao dicionário 
+
+
+2. EXECUÇÃO
+===========
+
+Para a realização do experimento, siga os passos a seguir:
+   1 - Extraia todos arquivos para o mesmo diretório;
+   2 - Abra o terminal;
+   3 - Conceda permissão de execução ao arquivo "dicionario", da seguinte forma: chmod a+x dicionario;
+   4 - Realize o experimento:
+       4.1 - Para realizar o experimento com a estrutura de dados LISTA, digite o seguine comando:
+             ./dicionario list <diretorio onde está a pasta descompactada>/<pasta descompactada>/dictionary.txt \
+             <diretorio onde está a pasta descompactada>/<pasta descompactada>/lookup.txt > <lista_saida.txt>
+       4.2 - Para realizar o experimento com a estrutura de dados HASHTABLE, digite o seguine comando:
+             ./dicionario hashmap <diretorio onde está a pasta descompactada>/<pasta descompactada>/dictionary.txt \
+             <diretorio onde está a pasta descompactada>/<pasta descompactada>/lookup.txt > <lista_saida.txt>
+       4.3 - Para realizar o experimento com a estrutura de dados ÁRVORE BINÁRIA, digite o seguine comando:
+             ./dicionario binarytree <diretorio onde está a pasta descompactada>/<pasta descompactada>/dictionary.txt \
+             <diretorio onde está a pasta descompactada>/<pasta descompactada>/lookup.txt > <lista_saida.txt>
+
+
+Após a execução de cada conjunto de comandos mostrados no item 3, serão também
+exibidas na tela, informações com relação ao TEMPO DE CARGA dos dados do dicioário,
+informaçÕes com relação ao TEMPO DE CONSULTA das palavras no dicionário por cada
+estrutura de dados, e também o CONSUMO DE MEMÓRIA durante a realização do experimento
+para cada estrutura de dado utilizada.
+
+
+

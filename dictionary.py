@@ -87,7 +87,7 @@ if __name__ == "__main__":
 
     if ( len(sys.argv) != 4 ):
         print ( "Format should be:\n\n" +
-            "$./execute.sh <data_structure> <data_file> <queries_file>" )
+            "$./dicionario <data_structure> <data_file> <queries_file>" )
         exit(1)
 
     data_structure_key = sys.argv[1]

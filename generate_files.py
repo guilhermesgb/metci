@@ -9,7 +9,7 @@ if ( run_number % 3 == 0 ):
 elif ( run_number % 3 == 1 ):
     size = 10000
 else:
-    size = 15000
+    size = 100000
 
 run_path = sys.argv[2]
 

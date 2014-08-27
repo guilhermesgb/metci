@@ -112,10 +112,10 @@ if __name__ == "__main__":
     for word in data_file.readlines():
         words.append(word.strip())
 
-    start = time.clock()
+    start = time.time()
     for word in words:
         data_structure.insert(word)
-    insertion_time = time.clock() - start
+    insertion_time = time.time() - start
 
     queries_file = sys.argv[3]
     if ( not os.path.exists(queries_file) ):
@@ -128,16 +128,16 @@ if __name__ == "__main__":
         words.append(word.strip())
 
     results = []
-    start = time.clock()
+    start = time.time()
     for word in words:
         results.append(data_structure.lookup(word))
-    lookup_time = time.clock() - start
+    lookup_time = time.time() - start
 
     for i in range(len(words)):
         print '<{}>: {}'.format(words[i],
             "S" if results[i] else "N")
-    print "tempo_de_carga: {} segundos".format(insertion_time)
-    print "tempo_da_consulta: {} segundos".format(lookup_time)
+    print "tempo_de_carga: %g segundos" % insertion_time
+    print "tempo_da_consulta: %g segundos" % lookup_time
     process = res.RUSAGE_SELF
     memory_consumption = res.getrusage(process).ru_maxrss
     memory_consumption *= res.getpagesize()
